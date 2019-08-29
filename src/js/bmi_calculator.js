@@ -1,5 +1,6 @@
 
 function BMICalculator(){
+
     BMICalculator.prototype.metric_bmi = function(obj) {
         let weight = obj.weight;
         let height = obj.height;
