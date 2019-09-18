@@ -1,4 +1,4 @@
-require('./spec.helper')
+require("../spec.helper")
 
 describe('BMICalculator', () => {
     let bmi_calculator
