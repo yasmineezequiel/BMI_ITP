@@ -1,6 +1,5 @@
 
 function BMICalculator(){
-
     BMICalculator.prototype.metric_bmi = function(obj) {
         let weight = obj.weight;
         let height = obj.height;
@@ -28,10 +27,10 @@ function BMICalculator(){
             obj.bmiMessage = "Healthy"
         }
         if (obj.bmiValue > 25 && obj.bmiValue < 30) {
-        obj.bmiMessage = "Overweight"
+            obj.bmiMessage = "Overweight"
         }
         if (obj.bmiValue > 30) {
-        obj.bmiMessage = "Obese"
+            obj.bmiMessage = "Obese"
     }
 }
 };

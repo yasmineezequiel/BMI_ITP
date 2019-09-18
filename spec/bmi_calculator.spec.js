@@ -1,11 +1,11 @@
-require("../spec.helper")
+require('./spec.helper')
 
 describe('BMICalculator', () => {
     let bmi_calculator
     let person
 
     beforeEach(() => {
-        person = new Person({weight: 58, height: 161});
+        person = new Person({weight: 90, height: 186});
         bmi_calculator = new BMICalculator();
     });
 
