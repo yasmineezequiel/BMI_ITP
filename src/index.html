@@ -3,28 +3,67 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> BMI Calculator </title>
     <script src="js/person.js"></script>
     <script src="js/bmi_calculator.js"></script>
+    <link rel="stylesheet" href="js/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
 </head>
 
 <body>
-    <form id="calculate">
+        <div class="container">
+       
+         <div class="ui three column divided grid">
+         </div>
+        <h1> Body Mass Index </h1> 
+            <div class="calculator">
+                <form id="calculate">
+                 <div class="form-group row">
+                  <div class="col-auto">
+                  <select class="form-control" id="my_select">
+                    <option value="metric">Metric System</option>
+                    <option value="imperial">Imperial System</option>
+                  </select>
+                </div>
+            </div>
+        </div>
         <div id="metric-inputs">
             <input type="text" id="weight-in-kgs" placeholder="Weight">
             <input type="text" id="height-in-cm" placeholder="Height">
         </div>
+        <div id="imperial-inputs">
+            <input type="text" id="weight-in-lbs" placeholder="Weight">
+            <input type="text" id="height-in-in" placeholder="Height">
+        </div>
 
-        <button type="submit" value="Calculate"> Calculate </button>
+        <button class="ui black button" type="submit" value="Calculate"> Calculate </button>
     </form>
-    <div>
+     <div>
         <span id="display_value"></span>
         <span id="display_message"></span>
     </div>
-    <script type="text/javascript">const global = {}
 
+    <table>
+        <tr>
+          <th>Less than 18.5 = Underweight</th>
+        </tr>
+        <tr>
+          <th>Between 18.5 to 25 = Healthy</th>
+        </tr>
+        <tr>
+          <th>Between 25 to 30 = Overweight</th>
+        </tr>
+        <tr>
+          <th>Above 30 = Obese</th> 
+        </tr> 
+    </table>
+        <script type="text/javascript">
+        const global = {}
         global.calculateForm = document.querySelector('#calculate');
         global.displayValueElement = document.querySelector('#display_value');
+        global.displayMessageElement = document.querySelector('#display_message');
+        global.methodSelector = document.querySelector('#my_select');
         global.displayMessageElement = document.querySelector('#display_message');
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -39,14 +78,18 @@
         });
 
         const calculateBMI = () => {
+            let method = global.methodSelector.options[global.methodSelector.selectedIndex].value
             return new Promise(resolve => {
-                let w = parseFloat(document.getElementById('weight-in-kgs').value);
-                let h = parseFloat(document.getElementById('height-in-cm').value);
+                let weightFormat = method === 'metric' ? 'weight-in-kgs' : 'weight-in-lbs'
+                let heightFormat = method === 'metric' ? 'height-in-cm' : 'height-in-in'
+                let w = parseFloat(document.getElementById(weightFormat).value);
+                let h = parseFloat(document.getElementById(heightFormat).value);
+
                 let person = new Person({
                     weight: w,
                     height: h,
                 });
-                person.calculate_bmi();
+                method === 'metric' ? person.calculate_bmi() : person.calculate_imperial_bmi();
                 resolve(person);
             })
         };
